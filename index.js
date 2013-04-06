@@ -14,21 +14,10 @@ var Pamphlet = function(selector){
 	for (var i = 0; i < panes.length; i++){
 		this.children.push(new PamphletPane(this, panes[i]));
 	}
-	this.total = this.children.length;
-	this.width = this.determineSize();
 	this.on('pane-clicked', bind(this, this.onPaneClicked));
 };
 
 Emitter(Pamphlet.prototype);
-
-Pamphlet.prototype.determineSize = function(){
-	var rect = this.el.getBoundingClientRect();
-	return rect.right - rect.left;
-};
-
-Pamphlet.prototype.determineChildSize = function(){
-	if (!this.selected){}
-};
 
 Pamphlet.prototype.onPaneClicked = function(pane){
 	if (this.selected) this.selected.removeActive();
@@ -48,6 +37,7 @@ var PamphletPane = function(context, el){
 	if (!el) throw new TypeError('PamphletPane() requires an element');
 	this.el = el;
 	this.context = context;
+	this.bind();
 };
 
 Emitter(PamphletPane.prototype);

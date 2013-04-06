@@ -1,15 +1,18 @@
 
 # pamphlet
 
-  a horizontal accordian, used like a pamphlet'
+  a simple horizontal accordian
 
 ## Installation
 
-    $ component install bmcmahen/pamphlet
+    $ component install eugenicsarchivesca/horizontal-accordion
 
 ## API
 
-   
+	```javascript
+	var Accordion = require('eugenicsarchivesca-horizontal-accordion');
+	var myAccordion = new Accordion('#accordion-wrapper');
+
 
 ## License
 
