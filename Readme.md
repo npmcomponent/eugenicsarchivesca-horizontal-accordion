@@ -14,6 +14,11 @@
 	var myAccordion = new Accordion('#accordion-wrapper');
 
 
+## Events
+
+### accordion.on('pane-clicked', cb(pane))...
+
+
 ## License
 
   MIT

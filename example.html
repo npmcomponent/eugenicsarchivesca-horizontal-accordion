@@ -1,0 +1,58 @@
+<html>
+<head>
+	<title>test horizontal accordion</title>
+	<script src='build/build.js'></script>
+
+	<style>
+	#accord-wrapper {
+		width: 100%;
+		margin: 0;
+		padding: 0;
+	}
+
+	.accordion-child {
+		width: 25%;
+		height: 200px;
+		transition: width .5s;
+		float: left;
+	}
+
+	.accordion-child.active {
+		width: 70%;
+	}
+
+	.accordion-child.collapsed {
+		width: 10%;
+	}
+
+	.one { background: blue;}
+	.two { background: green;}
+	.three { background: yellow;}
+	.four {background: red;}
+
+	</style>
+</head>
+<body>
+
+<ul id='accord-wrapper'>
+	<li class='accordion-child one'> hello </li>
+	<li class='accordion-child two'> two </li>
+	<li class='accordion-child three'> three </li>
+	<li class='accordion-child four'> four </li>
+</ul>
+
+<script>
+	var Accordion = require('horizontal-accordion');
+	var mine = new Accordion('#accord-wrapper');
+	mine.on('click', function(pane){
+		console.log(pane);
+		if (pane.active){
+			setTimeout(function(){
+				console.log('pane rendered');
+				pane.el.innerHTML = 'i rendered!';
+			}, 500);
+		}
+	});
+</script>
+</body>
+</html>
