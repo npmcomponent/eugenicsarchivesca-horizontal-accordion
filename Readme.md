@@ -16,7 +16,7 @@
 
 ## Events
 
-### accordion.on('pane-clicked', cb(pane))...
+### accordion.on('click', cb(pane))...
 
 
 ## License
