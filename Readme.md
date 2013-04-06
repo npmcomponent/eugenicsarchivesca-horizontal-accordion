@@ -9,8 +9,8 @@
 
 ## API
 
-	```javascript
 	var Accordion = require('eugenicsarchivesca-horizontal-accordion');
+	// after the DOM has loaded...
 	var myAccordion = new Accordion('#accordion-wrapper');
 
 
