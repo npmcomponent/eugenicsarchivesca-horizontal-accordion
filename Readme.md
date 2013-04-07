@@ -1,7 +1,7 @@
 
-# pamphlet
+# horizontal accordion
 
-  a simple horizontal accordian
+  A simple horizontal accordion. Manages classes, but you need to supply the styles. Check out the `example.html` file for a full implementation.
 
 ## Installation
 
