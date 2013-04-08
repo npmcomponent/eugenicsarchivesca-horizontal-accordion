@@ -8,22 +8,17 @@
 		width: 100%;
 		margin: 0;
 		padding: 0;
+		position: relative;
+		height: 200px;
 	}
 
 	.accordion-child {
-		width: 25%;
 		height: 200px;
-		transition: width .5s;
-		float: left;
+		transition: all 1s;
+		position: absolute;
+		-webkit-transform: translate3d(0,0,0);
 	}
 
-	.accordion-child.active {
-		width: 70%;
-	}
-
-	.accordion-child.collapsed {
-		width: 10%;
-	}
 
 	.one { background: blue;}
 	.two { background: green;}

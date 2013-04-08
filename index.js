@@ -1,7 +1,9 @@
 var Emitter = require('emitter')
   , bind = require('bind')
   , events = require('events')
-  , classes = require('classes');
+  , classes = require('classes')
+  , has3d = require('has-translate3d')
+  , transform = require('transform-property');
 
 var Accordion = module.exports = function(selector){
   if (!(this instanceof Accordion)) return new Accordion(selector);
@@ -11,22 +13,55 @@ var Accordion = module.exports = function(selector){
 
   // Maintain a collection of child elements
   this.children = [];
-  for (var i = 0; i < panes.length; i++){
+  for (var i = 0; i < panes.length; i++) {
     this.children.push(new AccordionPane(this, panes[i]));
   }
   this.on('click', bind(this, this.onPaneClicked));
+  this.determineSize().determinePosition();
 };
 
 Emitter(Accordion.prototype);
+
+// Calculate the size of our box, and the size of each
+// potential pane, including regular, active, collapsed.
+Accordion.prototype.determineSize = function(){
+  var rect = this.el.getBoundingClientRect();
+  this.width = rect.right - rect.left;
+  this.paneWidth = this.width / this.children.length;
+  this.activeWidth = 0.75 * this.width;
+  this.collapsedWidth = (this.width - this.activeWidth) / (this.children.length - 1);
+  return this;
+};
+
+// Determine our Left & Width of each pane.
+Accordion.prototype.determinePosition = function(){
+  var left = 0;
+  for (var i = 0; i < this.children.length; i++) {
+    var child = this.children[i];
+    child.setLeft(left);
+    if (child.isActive) {
+      left += this.activeWidth;
+      child.setWidth(this.activeWidth);
+    } else if (child.isCollapsed) {
+      left += this.collapsedWidth;
+      child.setWidth(this.collapsedWidth);
+    } else {
+      left += this.paneWidth;
+      child.setWidth(this.paneWidth);
+    }
+  }
+  return this;
+};
 
 Accordion.prototype.onPaneClicked = function(pane){
   if (this.selected) this.selected.removeActive();
   this.selected = pane;
   if (pane.collapsed) pane.removeCollapse();
-  for (var i = 0; i < this.children.length; i++) {
+  for (var i = 0; i < this.children.length; i++){
     var child = this.children[i];
-    if (! child.active) child.collapse();
+    if (! child.isActive) child.collapse();
   }
+  this.determinePosition();
 };
 
 // Each Accordion Pane
@@ -40,38 +75,59 @@ var AccordionPane = function(context, el){
 
 Emitter(AccordionPane.prototype);
 
+// Manage Position
+AccordionPane.prototype.setLeft = function(l){
+  var s = this.el.style;
+  this.left = l;
+  l = +l;
+  s.left = l;
+
+  // if (has3d) s[transform] = 'translate3d(' + l + 'px, 0, 0)';
+  // else s[transform] = 'translateX' + l + 'px)';
+};
+
+AccordionPane.prototype.setWidth = function(w){
+  var s = this.el.style;
+  w = +w;
+  this.width = w;
+  s.right = this.context.width - (this.left + w) + 'px';
+  // s.width = w + 'px';
+};
+
+// Bind Events
 AccordionPane.prototype.bind = function(){
   this.events = events(this.el, this);
   this.events.bind('click');
 };
 
 AccordionPane.prototype.onclick = function(e){
-  if (!this.active){
+  if (!this.isActive){
     this.makeActive();
     this.context.emit('click', this);
   }
 };
 
+// Manage Classes
 AccordionPane.prototype.removeActive = function(){
-  this.active = false;
+  this.isActive = false;
   classes(this.el).remove('active');
   this.context.emit('inactive', this);
 };
 
 AccordionPane.prototype.makeActive = function(){
-  this.active = true;
+  this.isActive = true;
   classes(this.el).add('active');
   this.context.emit('active', this);
 };
 
 AccordionPane.prototype.collapse = function(){
-  this.collapsed = true;
+  this.isCollapsed = true;
   classes(this.el).add('collapsed');
   this.context.emit('collapse', this);
 };
 
 AccordionPane.prototype.removeCollapse = function(){
-  this.collapsed = false;
+  this.isCollapsed = false;
   classes(this.el).remove('collapsed');
   this.context.emit('remove-collapse', this);
 };
