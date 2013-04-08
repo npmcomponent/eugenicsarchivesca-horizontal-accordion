@@ -90,8 +90,8 @@ AccordionPane.prototype.setRight = function(w){
   var s = this.el.style;
   w = +w;
   this.right = w;
-  // s.right = this.context.width - (this.left + w) + 'px';
-  s.width = w + 'px';
+  s.right = this.context.width - (this.left + w) + 'px';
+  // s.width = w + 'px';
 };
 
 // Bind Events
