@@ -55,7 +55,7 @@ Accordion.prototype.determinePosition = function(){
 Accordion.prototype.onPaneClicked = function(pane){
   if (this.selected) this.selected.removeActive();
   this.selected = pane;
-  if (pane.collapsed) pane.removeCollapse();
+  if (pane.isCollapsed) pane.removeCollapse();
   for (var i = 0; i < this.children.length; i++){
     var child = this.children[i];
     if (! child.isActive) child.collapse();
