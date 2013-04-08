@@ -80,17 +80,17 @@ AccordionPane.prototype.setLeft = function(l){
   var s = this.el.style;
   this.left = l;
   l = +l;
-  s.left = l + 'px';
+  // s.left = l + 'px';
 
-  // if (has3d) s[transform] = 'translate3d(' + l + 'px, 0, 0)';
-  // else s[transform] = 'translateX' + l + 'px)';
+  if (has3d) s[transform] = 'translate3d(' + l + 'px, 0, 0)';
+  else s[transform] = 'translateX' + l + 'px)';
 };
 
 AccordionPane.prototype.setRight = function(w){
   var s = this.el.style;
   w = +w;
   this.right = w;
-  s.right = this.context.width - (this.left + w) + 'px';
+  // s.right = this.context.width - (this.left + w) + 'px';
   // s.width = w + 'px';
 };
 
