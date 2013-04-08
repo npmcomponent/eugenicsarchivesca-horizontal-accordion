@@ -28,7 +28,6 @@ Accordion.prototype.onPaneClicked = function(pane){
     var child = this.children[i];
     if (! child.isActive) child.collapse();
   }
-  this.determinePosition();
 };
 
 // Each Accordion Pane
