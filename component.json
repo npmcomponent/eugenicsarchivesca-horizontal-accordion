@@ -8,9 +8,7 @@
     "component/emitter": "*",
     "component/bind": "*",
     "component/events": "*",
-    "component/classes": "*",
-    "component/has-translate3d": "*",
-    "component/transform-property": "*"
+    "component/classes": "*"
   },
   "development": {},
   "license": "MIT",
