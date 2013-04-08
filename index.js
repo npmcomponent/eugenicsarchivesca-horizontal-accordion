@@ -91,7 +91,7 @@ AccordionPane.prototype.setRight = function(w){
   w = +w;
   this.right = w;
   // s.right = this.context.width - (this.left + w) + 'px';
-  // s.width = w + 'px';
+  s.width = w + 'px';
 };
 
 // Bind Events
