@@ -1,7 +1,7 @@
-var Emitter = require('emitter')
-  , bind = require('bind')
-  , events = require('events')
-  , classes = require('classes');
+var Emitter = require('component-emitter')
+  , bind = require('component-bind')
+  , events = require('component-events')
+  , classes = require('component-classes');
 
 
 var Accordion = module.exports = function(selector){
